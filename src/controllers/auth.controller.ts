@@ -15,13 +15,17 @@ export const addUser = async (req: Request, res: Response) => {
 
         const requestedRole = typeof role === 'string' ? role.trim().toUpperCase() : 'USER';
         if (requestedRole !== 'USER' && requestedRole !== 'ADMIN') {
-            return res.status(400).json({ error: 'role must be USER or ADMIN' });
+            return res.status(400).json({
+                 error: 'role must be USER or ADMIN' 
+                });
         }
 
         let userRole: Role = Role.USER;
         if (requestedRole === 'ADMIN') {
             if (!process.env.ADMIN_CODE?.trim() || adminCode?.trim() !== process.env.ADMIN_CODE.trim()) {
-                return res.status(403).json({ error: 'Invalid admin code' })
+                return res.status(403).json({
+                     error: 'Invalid admin code' 
+                    })
             }
             userRole = Role.ADMIN;
         }
